@@ -1,0 +1,15 @@
+CREATE TRIGGER Control_Precio_Vuelo
+ON Vuelos
+INSTEAD OF UPDATE
+AS
+BEGIN 
+    IF UPDATE(Precio) AND EXISTS (
+        SELECT 1 FROM inserted i
+        JOIN deleted d ON i.ID = d.ID
+        WHERE i.Precio <> d.Precio
+        AND i.Fecha_Hora_Salida <= DATEADD(DAY, 3, GETDATE())
+    )
+    BEGIN
+        RAISERROR ('NO SE PERMITE MOFIFICAR PRECIOS CON MENOS DE 3 DIAS PARA LA SALIDA', 16, 2 );
+        Return; 
+    END
