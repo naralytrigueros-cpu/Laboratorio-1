@@ -1,0 +1,19 @@
+---Ver los vuelos ordenas por fecha
+SELECT Origen, Destino, Fecha_Hora_Salida
+FROM Vuelos
+ORDER BY Fecha_Hora_Salida;
+
+---Ver las reservas que estan Confirmadas
+SELECT Fecha_Reserva, Estado
+FROM Reservas
+WHERE Estado = 'Confirmado';
+
+---Aerolinias Por Pais
+SELECT Nombre, Pais
+FROM Aerolinia
+ORDER BY Pais, Nombre;
+
+---Reservas con los datos del Pasajero
+SELECT P.Nombre, P.Apellido1, R.Fecha_Reserva
+FROM Reservas R
+JOIN Pasajeros P ON R.Pasajero_ID = P.ID;
