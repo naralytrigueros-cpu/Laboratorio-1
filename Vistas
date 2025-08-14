@@ -1,0 +1,25 @@
+CREATE VIEW Vuelos_Disponibles
+AS
+    SELECT 
+    v.ID AS VueloID,
+    v.Origen,
+    v.Destino,
+    v.Fecha_Hora_Salida AS Salida,
+    v.Fecha_Hora_Llegada AS Llegada,
+    v.Asientos_Disponibles,
+    v.Precio,
+    a.Nombre AS Aerolina,
+    av.Modelo AS Avion
+    FROM Vuelos v
+    JOIN Aviones av ON v.Avion_ID = av.ID
+    JOIN Aerolinia a ON av.Aerolinia_ID = a.ID
+    WHERE v.Asientos_Disponibles > 0
+    AND v.Fecha_Hora_Salida > GETDATE();
+
+----USO DE LA VISTA---
+----Consultar vuelos disponibles
+SELECT * FROM Vuelos_Disponibles;
+
+----Consultar para un destino especificico
+SELECT * FROM Vuelos_Disponibles
+WHERE Destino = 'London';
