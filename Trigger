@@ -13,3 +13,13 @@ BEGIN
         RAISERROR ('NO SE PERMITE MOFIFICAR PRECIOS CON MENOS DE 3 DIAS PARA LA SALIDA', 16, 2 );
         Return; 
     END
+---COSAS QUE PUEDE CAMBIAR
+    UPDATE V SET
+    V.Origen = i.Origen,
+    V.Destino = i.Destino,
+    V.Fecha_Hora_Salida = i.Fecha_Hora_Salida
+    FROM Vuelos V
+    JOIN inserted i ON V.ID = i.ID;
+    
+END;
+GO
