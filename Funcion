@@ -1,0 +1,24 @@
+CREATE FUNCTION Disponibilidad_Asientos(
+@p_id_vuelo INT,
+@p_cantidad INT
+)
+
+RETURNS VARCHAR(15) 
+AS
+BEGIN
+    DECLARE @v_asientos_disponibles INT;
+    DECLARE @resultado VARCHAR (15);
+
+    SELECT @v_asientos_disponibles = asientos_disponibles
+    FROM vuelos
+    WHERE ID = @p_id_vuelo;
+
+    IF @v_asientos_disponibles >= @p_cantidad 
+    SET @resultado = 'SI';
+    ELSE 
+    SET @resultado = 'NO';
+RETURN @resultado;
+END;
+GO
+---USO DE LA FUNCION---
+SELECT dbo.Disponibilidad_Asientos(1,2) AS Disponibilidad;
